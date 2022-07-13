@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Show
 
 # class Show:
 #   def __init__(self, title, season, year, description):
@@ -23,4 +24,9 @@ def about(request):
 
 # Add new view
 def shows_index(request):
+  shows = Show.objects.all()
   return render(request, 'shows/index.html', { 'shows': shows })
+
+def shows_detail(request, show_id):
+  show = Show.objects.get(id=show_id)
+  return render(request, 'shows/detail.html', { 'show': show })

@@ -9,6 +9,9 @@ class Show(models.Model):
   year = models.IntegerField()
   description = models.TextField(max_length=250)
 
+  def __str__(self):
+    return self.title
+
 
 
 # class Show:
