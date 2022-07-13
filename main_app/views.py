@@ -1,19 +1,6 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Show
-
-# class Show:
-#   def __init__(self, title, season, year, description):
-#     self.title = title
-#     self.season = season
-#     self.year = year
-#     self.description = description
-
-# shows = [
-#   Show('Squid Game', 1, 2022, 'Play games to survive'),
-#   Show('Stranger Things', 4, 2022, 'Back to the dark world'),
-#   Show('Alice in Borderland', 1, 2020, 'Enter the game world')
-# ]
-
 
 # Create your views here.
 def home(request):
@@ -30,3 +17,16 @@ def shows_index(request):
 def shows_detail(request, show_id):
   show = Show.objects.get(id=show_id)
   return render(request, 'shows/detail.html', { 'show': show })
+
+class ShowCreate(CreateView):
+  model = Show
+  fields = '__all__'
+  success_url = '/shows/'
+
+class ShowUpdate(UpdateView):
+  model = Show
+  fields = ['season', 'year', 'description']
+
+class ShowDelete(DeleteView):
+  model = Show
+  success_url = '/shows/'

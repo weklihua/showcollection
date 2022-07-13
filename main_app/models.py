@@ -1,5 +1,7 @@
 from unittest.util import _MAX_LENGTH
 from django.db import models
+from django.urls import reverse
+
 
 # Create your models here.
 
@@ -11,6 +13,9 @@ class Show(models.Model):
 
   def __str__(self):
     return self.title
+
+  def get_absolute_url(self):
+    return reverse('detail', kwargs={'show_id': self.id})
 
 
 

@@ -10,6 +10,10 @@
     <p>Year: {{ show.year }}</p>
     <p>Description: {{ show.description }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'shows_update' show.id %}">Edit</a>
+    <a href="{% url 'shows_delete' show.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}
