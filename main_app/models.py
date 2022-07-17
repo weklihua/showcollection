@@ -2,6 +2,13 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.urls import reverse
 
+RATINGS = (
+  (1, 1),
+  (2, 2),
+  (3, 3),
+  (4, 4),
+  (5, 5)
+)
 
 # Create your models here.
 
@@ -18,16 +25,17 @@ class Show(models.Model):
     return reverse('detail', kwargs={'show_id': self.id})
 
 
+class Review(models.Model):
+  rating = models.IntegerField(
+    choices=RATINGS,
+    default=RATINGS[4][0]
+  )
+  comment = models.TextField(max_length=250)
 
-# class Show:
-#   def __init__(self, title, season, year, description):
-#     self.title = title
-#     self.season = season
-#     self.year = year
-#     self.description = description
+  show = models.ForeignKey(Show, on_delete=models.CASCADE)
 
-# shows = [
-#   Show('Squid Game', 1, 2022, 'Play games to survive'),
-#   Show('Stranger Things', 4, 2022, 'Back to the dark world'),
-#   Show('Alice in Borderland', 1, 2020, 'Enter the game world')
-# ]
+  def __str__(self):
+    return f"Rating is {self.get_rating_display()}, comment: {self.comment}"
+
+  class Meta:
+    ordering = ['-rating']

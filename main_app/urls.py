@@ -9,4 +9,6 @@ urlpatterns = [
   path('shows/create/', views.ShowCreate.as_view(), name='shows_create'),
   path('shows/<int:pk>/update/', views.ShowUpdate.as_view(), name='shows_update'),
   path('shows/<int:pk>/delete/', views.ShowDelete.as_view(), name='shows_delete'),
+  path('shows/<int:show_id>/add_review/', views.add_review, name='add_review'),
+
 ]
