@@ -57,6 +57,28 @@
       {% else %}
         <h5>No performers :(</h5>
       {% endif %}
+    </div>   
+    <div class="col s6">
+      <h3>Available Performers</h3>
+      {% if performers.count %}
+        {% for performer in performers.all %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">
+                {{ performer.name }}, born in {{performer.born_year}}
+              </span>
+            </div>
+            <div class="card-action">
+              <form action="{% url 'assoc_performer' show.id performer.id %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn">Add</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h5>{{show.title}} Already Has All Performers Available</h5>
+      {% endif %}
     </div>
     <!-- Available performers will come after this line -->
   </div>

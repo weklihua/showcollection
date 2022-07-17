@@ -19,10 +19,19 @@ def shows_index(request):
 
 def shows_detail(request, show_id):
   show = Show.objects.get(id=show_id)
+  id_list = show.performers.all().values_list('id')
+  performers_show_doesnt_have = Performer.objects.exclude(id__in=id_list)
+
   review_form = ReviewForm()
   return render(request, 'shows/detail.html', {
-      'show': show, 'review_form': review_form
+      'show': show, 'review_form': review_form,
+      'performers': performers_show_doesnt_have
     })
+
+def assoc_performer(request, show_id, performer_id):
+  # Note that you can pass a performer's id instead of the whole performer object
+  Show.objects.get(id=show_id).performers.add(performer_id)
+  return redirect('detail', show_id=show_id)
 
 def add_review(request, show_id):
   form = ReviewForm(request.POST)
@@ -34,7 +43,7 @@ def add_review(request, show_id):
 
 class ShowCreate(CreateView):
   model = Show
-  fields = '__all__'
+  fields = ['title', 'season', 'year', 'description']
   success_url = '/shows/'
 
 class ShowUpdate(UpdateView):
