@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Show
+from django.views.generic import ListView, DetailView
+from .models import Show, Performer
 from .forms import ReviewForm
 
 
@@ -43,3 +44,21 @@ class ShowUpdate(UpdateView):
 class ShowDelete(DeleteView):
   model = Show
   success_url = '/shows/'
+
+class PerformerList(ListView):
+  model = Performer
+
+class PerformerDetail(DetailView):
+  model = Performer
+
+class PerformerCreate(CreateView):
+  model = Performer
+  fields = '__all__'
+
+class PerformerUpdate(UpdateView):
+  model = Performer
+  fields = ['name', 'born_year']
+
+class PerformerDelete(DeleteView):
+  model = Performer
+  success_url = '/performers/'

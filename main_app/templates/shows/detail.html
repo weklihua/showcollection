@@ -39,6 +39,28 @@
   </div>
 </div>
 
+<!-- This is all new markup to be added just above the <script> tag -->
+  <hr>
+  <div class="row">
+    <div class="col s6">
+      <h3>{{ show.title }}'s Performers</h3>
+      {% if show.performers.count %}
+        {% for performer in show.performers.all %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">
+                {{ performer.name }}, born in {{performer.born_year}}
+              </span>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h5>No performers :(</h5>
+      {% endif %}
+    </div>
+    <!-- Available performers will come after this line -->
+  </div>
+  
 <script>
   const selectEl = document.getElementById('id_rating');
   M.FormSelect.init(selectEl);
